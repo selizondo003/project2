@@ -9,7 +9,9 @@
     width: 400px;
     margin: auto;
   }
-  
+  h1{
+    padding: 5rem;
+  }
 .frame{
     display: flex;
     align-items: center;
