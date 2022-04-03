@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', init);
 
+var myInterval = "";
+
 function init() {
   //create shortcut vars
   const back_btn = document.querySelector(".back-btn");
@@ -7,6 +9,7 @@ function init() {
   const frame = document.querySelector(".frame");
   const slides = frame.querySelectorAll("img");
   const caption = document.querySelector(".caption");
+  const controls = document.querySelector(".controls");
 
   //with JS active, hide all images
   slides.forEach((slide) => {
@@ -15,19 +18,27 @@ function init() {
   
   // show the first slide
   slides[0].classList.remove("hide");
-  
-   next_btn.addEventListener("click",changeSlide);
+
+  //create next and back button controls 
+   next_btn.addEventListener("click", changeSlide);
    back_btn.addEventListener("click", changeSlide);
 
-   caption.innerHTML = frame.firstElementChild.alt;
-}
+   //create caption
+   //caption.innerHTML= frame.firstElementChild.alt;
 
+   //start timer, chages every 5sec
+   myInterval = setInterval(changeSlide, 4000);
+}
 
 
 function changeSlide(e) {
   
-    // stop link from trying to reload page
-    e.preventDefault();
+    //check to see if function was called by button click or setInterval
+    //if the event object passes, that means button was clicked and we will turn off the timer
+    if (e) {
+        e.preventDefault();
+        clearInterval(myInterval);
+    }
     
     //shortcut vars
     const frame = document.querySelector(".frame");
@@ -36,13 +47,13 @@ function changeSlide(e) {
     let showing = document.querySelector(".current");
     let nextUp = "";
   
-    if(e.target.className == 'next-btn') {
-      nextUp = showing.nextElementSibling;
-    }
-  
-    if(e.target.className == 'back-btn') {
-      nextUp = showing.previousElementSibling;
-    }
+    //determine what direction slides are going in
+    //if myInterval is called, no event obejct is passed
+    if(!e || e.target.className == "next-btn") {
+        nextUp = showing.nextElementSibling;
+        } else {
+            nextUp = showing.previousElementSibling;
+        }
     
     // deactivate current image
     showing.classList.toggle("hide");
@@ -50,9 +61,9 @@ function changeSlide(e) {
     
     //make sure next image is there
     if (!nextUp) {
-      nextUp = slides[slides.length - 1];
+        nextUp = slides[slides.length - 1];
     }
-  
+
     if (nextUp.nodeName !== "IMG") {
       nextUp = slides[0];
     }
@@ -62,5 +73,5 @@ function changeSlide(e) {
     nextUp.classList.toggle("current");
 
     //change caption text
-    caption.innerHTML = nextUp.alt;
-  }
+    //caption.innerHTML = nextUp.alt;
+}
