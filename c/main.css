@@ -17,6 +17,7 @@
     width:400px;
     height:300px;
     margin: auto;
+    object-fit: cover;
   }
   
   .slide {
@@ -40,11 +41,13 @@
   .abs-pos{
     position: absolute;
   }
-  
+ 
   img{
-      height: 200px;
-      width: 200px;
+      width: 400px;
+      height: 400px;
+
   }
+
   .caption{
     position: absolute;
     z-index: 3;
