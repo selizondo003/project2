@@ -23,11 +23,13 @@ function init() {
    next_btn.addEventListener("click", changeSlide);
    back_btn.addEventListener("click", changeSlide);
 
+    //start timer, chages every 4sec
+    myInterval = setInterval(changeSlide, 4000);
+    
    //create caption
-   //caption.innerHTML= frame.firstElementChild.alt;
+   caption.innerHTML= frame.firstElementChild.alt;
 
-   //start timer, chages every 5sec
-   myInterval = setInterval(changeSlide, 4000);
+  
 }
 
 
@@ -73,5 +75,5 @@ function changeSlide(e) {
     nextUp.classList.toggle("current");
 
     //change caption text
-    //caption.innerHTML = nextUp.alt;
+    caption.innerHTML = nextUp.alt;
 }
